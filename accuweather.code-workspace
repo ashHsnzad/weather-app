@@ -1,0 +1,14 @@
+{
+  "folders": [
+	{
+		"path": "."
+	},
+	{
+		"path": "../image-searcher"
+	},
+	{
+		"path": "../smilga/mixmaster"
+	}
+],
+  "settings": {}
+}
