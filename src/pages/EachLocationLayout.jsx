@@ -63,11 +63,12 @@ function EachLocationLayout() {
 
   if (data) {
     return (
-      <>
+      <main style={{display: "flex", flexDirection: "column", alignItems: "center"
+      }}>
         {/* <Navbar /> */}
         <WeatherPageNavbar />
         <Outlet context={{ currentData: data }} />
-      </>
+      </main>
     );
   }
 }

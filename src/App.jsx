@@ -41,6 +41,7 @@ function App() {
         {
           path: "hourly-weather-forecast",
           Component: HourlyForecast,
+          
         },
         {
           path: "weather-radar",
