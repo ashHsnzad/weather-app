@@ -50,7 +50,7 @@ html {
   --backgroundColor: var(--grey-300);
   --textColor: var(--grey-900);
   --borderRadius: 0.5rem;
-  --letterSpacing: 1px;
+  /* --letterSpacing: 1px; */
   --transition: 0.3s ease-in-out all;
   --max-width: 980px;
   --fixed-width: 750px;
@@ -120,6 +120,10 @@ h5 {
   font-size: 0.8rem;
 }
 
+h6 {
+  font-size: 0.6rem;
+}
+
 /* BIGGER FONTS */
 /* h1 {
   font-size: clamp(3rem, 6vw, 6rem);
@@ -154,6 +158,10 @@ small,
 
 a {
   text-decoration: none;
+  color: var(--textColor);
+  &:visited, :hover, :active {
+    color: inherit;
+  }
 }
 ul {
   list-style-type: none;
@@ -197,12 +205,12 @@ ul {
 }
 
 /* alerts */
-.alert {
+/* .alert {
   padding: 0.375rem 0.75rem;
   margin-bottom: 1rem;
   border-color: transparent;
   border-radius: var(--borderRadius);
-}
+} */
 
 .alert-danger {
   color: var(--red-dark);
@@ -214,13 +222,13 @@ ul {
 }
 /* form */
 
-.form {
+form {
   width: 100%;
-  /* max-width: var(--fixed-width); */
-  /* background: var(--white); */
+  max-width: var(--fixed-width);
+  background: var(--white);
   border-radius: var(--borderRadius);
-  /* box-shadow: var(--shadow-2); */
-  padding: 1rem 0;
+  box-shadow: var(--shadow-2);
+  /* padding: 1rem 0; */
 }
 .form-label {
   display: block;
@@ -234,8 +242,13 @@ ul {
   width: 100%;
   padding: 1rem 0.75rem;
   border-radius: var(--borderRadius);
-  background: var(--backgroundColor);
-  border: 1px solid var(--grey-200);
+  background-color: var(--white);
+  border: none;
+  height: 90%;
+  &:focus {
+    outline: none;
+  }
+
 }
 
 .form-row {

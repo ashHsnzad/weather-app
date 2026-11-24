@@ -29,5 +29,17 @@ const WrapperLandingPage = styled.section`
     max-width: 90vw;
     height: 400px;
   }
+  .form {
+    border-radius: 6px;
+    input {
+      background-color: var(--white);
+    }
+  }
+  .auto-complete {
+    width: auto;
+    margin-top: 1rem;
+    border-radius: 5px;
+    z-index: 10;
+  }
 `;
 export default WrapperLandingPage;

@@ -2,12 +2,19 @@ import { NavLink } from "react-router";
 import { useParams } from "react-router";
 import { useAppContext } from "../AppContext";
 import Wrapper from "../styles/WeatherPageNavbar";
+import SearchForm from "./SearchForm";
+import Autocomplete from "./Autocomplete";
+import SearchQueryHook from "../SearchQueryHook";
 import logo from "../assets/vite.svg";
-import { HiOutlineMenuAlt3 } from "react-icons/hi";
+
+// import { useQuery } from "@tanstack/react-query";
+// import axios from "axios";
+// import { HiOutlineMenuAlt3 } from "react-icons/hi";
 
 function WeatherPageNavbar() {
   const { currentData } = useAppContext();
-  console.log("WeatherPageNavbar rendered");
+  const { searchQuery, setSearchQuery, queryData, queryErrorMessage } =
+    SearchQueryHook();
   const { lat, lon, country, city } = useParams();
   const weatherPageUrl = `/${country}/${city}/${lat}/${lon}`;
 
@@ -41,7 +48,16 @@ function WeatherPageNavbar() {
               </h4>
             </NavLink>
           </div>
-          <div className="right-side"></div>
+          <div className="right-side">
+            <SearchForm
+              setSearchQuery={setSearchQuery}
+              queryData={queryData}
+              searchQuery={searchQuery}
+            />
+            <div className="auto-complete">
+              <Autocomplete fetchedPlaces={queryData} />
+            </div>
+          </div>
         </div>
       </section>
       <section className="reports">

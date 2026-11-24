@@ -8,5 +8,5 @@ export { default as LocationsList } from "./LocationsList";
 export { default as AirQuality } from "./AirQuality";
 export { default as HourlyForecast } from "./HourlyForecast";
 export { default as ThreeDayForecast } from "./ThreeDayForecast";
-export { default as WeatherRadar } from "./WeatherRadar";
+export { default as Radar } from "./Radar";
 export {default as EachLocationLayout} from "./EachLocationLayout"

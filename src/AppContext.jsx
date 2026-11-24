@@ -9,6 +9,7 @@ export const AppContext = createContext();
 export const AppContextProvider = (props) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentData, setCurrentData] = useState(null);
+  const [ipData, setIpData] = useState([])
 
   console.log(currentData);
   const [locations, setLocations] = useState(() => {
@@ -35,6 +36,8 @@ export const AppContextProvider = (props) => {
       !locations.some(({ lat, lon }) => lat === data.lat && lon === data.lon)
     ) {
       setLocations((prev) => [...prev, { lat: data.lat, lon: data.lon }]);
+      setIpData(data)
+
     }
   }, [data?.region]);
 
@@ -64,6 +67,8 @@ export const AppContextProvider = (props) => {
         setLocations,
         currentData,
         setCurrentData,
+        ipData,
+        setIpData
       }}
     >
       {props.children}

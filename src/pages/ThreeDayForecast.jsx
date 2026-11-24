@@ -1,6 +1,7 @@
 import { useOutletContext } from "react-router";
 import DailyCard from "../components/DailyCard";
-import { VscWarning } from "react-icons/vsc";
+import Wrapper from "../styles/ThreeDayForecast";
+import AlertsHeader from "../components/AlertsHeader";
 
 function ThreeDayForecast() {
   const { currentData } = useOutletContext();
@@ -19,20 +20,15 @@ function ThreeDayForecast() {
   const alerts = currentData.alerts?.alert;
 
   return (
-    <main>
-      {alerts.length && (
-        <div className="alert">
-          <VscWarning />
-          <h4>{alerts[0].event}</h4>
-        </div>
-      )}
-      <h3>
+    <Wrapper>
+      {alerts.length > 0 && <AlertsHeader alerts={alerts} />}
+      <h3 className="duration">
         {firstMonth} {firstDayNumber} - {secondMonth} {secondDayNumber}
       </h3>
       {currentData.forecast.forecastday.map((day) => (
-        <DailyCard dayData={day} alerts={alerts} />
+        <DailyCard dayData={day} alerts={alerts} key={day.date_epoch} />
       ))}
-    </main>
+    </Wrapper>
   );
 }
 export default ThreeDayForecast;

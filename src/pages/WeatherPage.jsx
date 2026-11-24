@@ -9,7 +9,6 @@ import Astro from "../components/Astro";
 import AirQualityBrief from "../components/AirQualityBrief";
 import { useAppContext } from "../AppContext";
 
-
 function WeatherPage() {
   const { currentData } = useOutletContext();
   const { city } = useParams();
@@ -38,9 +37,7 @@ function WeatherPage() {
         <div className="map-title">
           <h4>{city.toUpperCase()} WEATHER RADAR</h4>
         </div>
-        <div className="map">
-          <Map />
-        </div>
+        <Map />
       </section>
       <Carousel
         firstTwoDays={firstTwoDays}

@@ -8,23 +8,40 @@ const Wrapper = styled.nav`
   .top-navbar {
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     width: 100vw;
     background-color: black;
     color: white;
     height: 4rem;
+    /* position: relative; */
     h4 {
       color: white;
     }
   }
   .top-nav-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: var(--fixed-width);
     max-width: 90vw;
+    display: flex;
   }
   .left-side {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+  }
+  .right-side {
+    display: flex;
+    align-items: center;
+    width: 300px;
+  }
+  .auto-complete {
+    width: 300px;
+    /* margin-top: 1rem; */
+
+    position: fixed;
+    top: 2.9rem;
   }
 
   .logo {

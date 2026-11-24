@@ -3,9 +3,11 @@ const Wrapper = styled.article`
   display: flex;
   flex-direction: column;
   width: var(--fixed-width);
+  background-color: var(--white);
+  padding: 1rem 1rem;
   max-width: 90vw;
   margin: 1rem 0;
-  gap: 1px;
+  gap: 2rem;
 
   /* .daily-forecast {
     display: flex;
@@ -19,10 +21,16 @@ const Wrapper = styled.article`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--white);
     width: 100%;
-    padding: 0.3rem 1rem;
+
     /* padding-left: 0; */
+  }
+  .date-overall {
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+    align-items: center;
+
   }
   .date {
     width: 35%;
@@ -32,7 +40,7 @@ const Wrapper = styled.article`
     align-items: flex-start;
     gap: 3px;
     h4 {
-      font-weight: 700;
+      font-weight: 600;
     }
   }
   .overall {
@@ -48,7 +56,7 @@ const Wrapper = styled.article`
       font-size: 0.6rem;
     }
     h3 {
-      font-weight: 700;
+      font-weight: 600;
     }
   }
 
@@ -65,6 +73,63 @@ const Wrapper = styled.article`
     img {
       width: 30px;
     }
+  }
+
+  h3 {
+    font-weight: 600;
+  }
+
+  .alert {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--grey-300);
+    border-radius: 6px;
+    padding: 0.4rem 0.8rem;
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+  .alert-title {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid var(--grey-200);
+    svg {
+      color: #bd1c11;
+      font-size: 1.4rem;
+    }
+  }
+  .alert-type h5 {
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+  .alert-duration {
+    margin-bottom: 0.3rem;
+  }
+  .data-table {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.3rem;
+  }
+
+  .data-table div {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--grey-200);
+    padding-bottom: 1rem;
+
+    :last-child {
+      font-weight: 700;
+      text-transform: lowercase;
+      small {
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+  }
+  .data-table :last-child {
+    border: none;
   }
 `;
 export default Wrapper;

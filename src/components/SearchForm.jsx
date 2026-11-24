@@ -8,24 +8,22 @@ function SearchForm({ setSearchQuery, queryData, searchQuery }) {
   const navigate = useNavigate();
   const search = (formData) => {
     const searchTerm = formData.get("search");
-    if (searchTerm.length > 1 && queryData.length > 0) {
+    if (searchTerm.length > 1) {
       setSearchQuery(searchTerm);
       navigate(`/locations-list?q=${searchTerm}`);
     } else return null;
   };
   return (
-    <WrapperSearchForm>
-      <form className="form" action={search}>
-        <input
-          type="search"
-          placeholder="e.g. London"
-          className="form-input"
-          onChange={handleChange}
-          value={searchQuery ?? ""}
-          name="search"
-        />
-      </form>
-    </WrapperSearchForm>
+    <form className="form" action={search}>
+      <input
+        type="search"
+        placeholder="e.g. London"
+        className="form-input"
+        onChange={handleChange}
+        value={searchQuery ?? ""}
+        name="search"
+      />
+    </form>
   );
 }
 export default SearchForm;

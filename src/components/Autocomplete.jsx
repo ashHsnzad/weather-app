@@ -1,31 +1,20 @@
 import { Link } from "react-router";
-import WrapperAutocomplete from "../styles/Autocomplete";
+import Wrapper from "../styles/Autocomplete";
 import { useAppContext } from "../AppContext";
 import { useEffect } from "react";
 function Autocomplete({ fetchedPlaces }) {
-  const { locations, setLocations } = useAppContext();
+  const { locations, setLocations, ipData, setIpData } = useAppContext();
+  // const { country_name, lat, lon, city } = ipData;
+  const handleClick = (coordinate) =>
+    setLocations((prev) => [coordinate, ...prev]);
 
-  // useEffect((coordinate)=> {
-  //   if (fetchedPlaces) {
-  //     setLocations (prev => [...prev, coordinate])
-  //   }
-  // })
-  const handleClick = (coordinate) => setLocations((prev) => [coordinate, ...prev ]);
-  //   {
-  //   console.log(coordinate);
-
-  //   if (
-  //     !locations.some(
-  //       (element) =>
-  //         element.lat === coordinate.lat && element.lon === coordinate.lon,
-  //     )
-  //   ) {
-  //     setLocations((prev) => [...prev, coordinate]);
-      
-  //   }
-  // };
   return (
-    <WrapperAutocomplete>
+    <Wrapper>
+      {/* <Link to={`/${country_name}/${city}/${lat}/${lon}`}>
+        <div className="place-info">
+          <h3>use your current location</h3>
+        </div>
+      </Link> */}
       {fetchedPlaces?.map((place) => {
         const { id, lat, lon, name, region, country } = place;
         console.log(place);
@@ -36,16 +25,16 @@ function Autocomplete({ fetchedPlaces }) {
             className="fetched-place"
             onClick={() => handleClick({ lat: lat, lon: lon })}
           >
-            <div>
-              <h4>{name}</h4>
-              <p>
+            <div className="place-info">
+              <h3>{name}</h3>
+              <h4>
                 {region}, {country}
-              </p>
+              </h4>
             </div>
           </Link>
         );
       })}
-    </WrapperAutocomplete>
+    </Wrapper>
   );
 }
 export default Autocomplete;

@@ -4,17 +4,16 @@ import WrapperLandingPage from "../styles/LandingPage";
 import Autocomplete from "../components/Autocomplete";
 import Map from "../components/Map";
 import { useAppContext } from "../AppContext";
-import { useState, useEffect } from "react";
+import SearchQueryHook from "../SearchQueryHook";
 import { useQuery } from "@tanstack/react-query";
-import { nanoid } from "nanoid";
 import axios from "axios";
 
 const url = `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_WEATHERAPI_KEY}`;
 const queryUrl = `http://api.weatherapi.com/v1/search.json?key=${import.meta.env.VITE_WEATHERAPI_KEY}`;
 
 function LandingPage() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const { searchQuery, setSearchQuery, queryData, queryErrorMessage } =
+    SearchQueryHook();
   const { locations, seLocations } = useAppContext();
 
   const uniqueLocations = locations.filter(
@@ -25,10 +24,10 @@ function LandingPage() {
   );
 
   console.log("uniqueLocations:", uniqueLocations);
-  // const uniqueLocations = Array.from(new Set(locations));
-  // console.log(uniqueLocations);
+
   let lastThreeLocations = uniqueLocations.slice(0, 3);
   console.log(lastThreeLocations);
+
   // fetching from the context or localStorage
   const {
     isPending: weatherPending,
@@ -54,34 +53,6 @@ function LandingPage() {
     },
     staleTime: 20 * 60 * 1000,
   });
-  // console.log(weatherData?.location);
-  // fetching for a search query
-  const {
-    isError: queryIsError,
-    data: queryData,
-    isPending: queryPending,
-    isSuccess: querySuccess,
-    error: queryError,
-  } = useQuery({
-    queryKey: ["searches", debouncedQuery],
-    queryFn: async () => {
-      const results = await axios(`${queryUrl}&q=${debouncedQuery}`);
-      return results.data;
-    },
-    enabled: debouncedQuery.length > 1,
-  });
-  // console.log(queryData ?? []);
-  // console.log(debouncedQuery);
-  // console.log(searchQuery);
-  // console.log(locations[0]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedQuery(searchQuery);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
 
   if (weatherError) {
     axios.isAxiosError(weatherError)
@@ -92,8 +63,6 @@ function LandingPage() {
   // ************Error Handling*************//
   const weatherErrorMessage =
     weatherError?.response?.data?.error?.message || "something went wrong";
-  const queryErrorMessage =
-    queryError?.data?.error?.message || "couldn't find the place";
   if (weatherPending) {
     return (
       <WrapperLandingPage>
@@ -136,8 +105,9 @@ function LandingPage() {
         setSearchQuery={setSearchQuery}
         queryData={queryData}
         searchQuery={searchQuery}
+        className="form"
       />
-      <Autocomplete fetchedPlaces={queryData} />
+      <Autocomplete fetchedPlaces={queryData} className="auto-complete" />
       <div className={`recent-locations ${queryData?.length ? "opaque" : ""}`}>
         <h5>RECENT LOCATIONS:</h5>
         <section className="carts-container">
@@ -163,7 +133,7 @@ function LandingPage() {
           <h4>{currentCountry} WEATHER RADAR</h4>
         </div>
         <div className="map">
-          <Map  />
+          <Map />
         </div>
       </section>
     </WrapperLandingPage>

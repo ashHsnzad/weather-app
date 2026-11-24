@@ -7,7 +7,7 @@ import {
   LandingPage,
   WeatherPage,
   LocationsList,
-  WeatherRadar,
+  Radar,
   HourlyForecast,
   ThreeDayForecast,
   AirQuality,
@@ -45,7 +45,7 @@ function App() {
         },
         {
           path: "weather-radar",
-          Component: WeatherRadar,
+          Component: Radar,
         },
         {
           path: "air-quality",
