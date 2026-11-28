@@ -1,15 +1,14 @@
 import SearchForm from "../components/SearchForm";
 import WeatherCart from "../components/WeatherCart";
 import WrapperLandingPage from "../styles/LandingPage";
-import Autocomplete from "../components/Autocomplete";
 import Map from "../components/Map";
 import { useAppContext } from "../AppContext";
 import SearchQueryHook from "../SearchQueryHook";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { nanoid } from "nanoid";
 
 const url = `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_WEATHERAPI_KEY}`;
-const queryUrl = `http://api.weatherapi.com/v1/search.json?key=${import.meta.env.VITE_WEATHERAPI_KEY}`;
 
 function LandingPage() {
   const { searchQuery, setSearchQuery, queryData, queryErrorMessage } =
@@ -19,7 +18,10 @@ function LandingPage() {
   const uniqueLocations = locations.filter(
     (location, index, arr) =>
       arr.findIndex(
-        (loc) => JSON.stringify(loc) === JSON.stringify(location),
+        (loc) =>
+          String(loc.lat).split(".")[0] ===
+            String(location.lat).split(".")[0] &&
+          String(loc.lon).split(".")[0] === String(location.lon).split(".")[0],
       ) === index,
   );
 
@@ -107,8 +109,8 @@ function LandingPage() {
         searchQuery={searchQuery}
         className="form"
       />
-      <Autocomplete fetchedPlaces={queryData} className="auto-complete" />
-      <div className={`recent-locations ${queryData?.length ? "opaque" : ""}`}>
+      {/* <Autocomplete fetchedPlaces={queryData} className="auto-complete" /> */}
+      <div className="recent-locations">
         <h5>RECENT LOCATIONS:</h5>
         <section className="carts-container">
           {weatherData.map((data, i) => (
@@ -123,7 +125,7 @@ function LandingPage() {
               feelsLikeF={data.current.feelslike_f}
               lat={lastThreeLocations[i].lat}
               lon={lastThreeLocations[i].lon}
-              key={`${data.location.lat}-${data.location.lon}`}
+              key={nanoid()}
             />
           ))}
         </section>

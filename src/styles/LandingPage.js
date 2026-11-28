@@ -35,11 +35,11 @@ const WrapperLandingPage = styled.section`
       background-color: var(--white);
     }
   }
-  .auto-complete {
+  /* .auto-complete {
     width: auto;
     margin-top: 1rem;
     border-radius: 5px;
     z-index: 10;
-  }
+  } */
 `;
 export default WrapperLandingPage;

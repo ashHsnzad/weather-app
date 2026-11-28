@@ -17,7 +17,9 @@ function WeatherCart({
   // console.log("lat:", lat);
   // console.log("lon:", lon);
   const index = locations.findIndex(
-    (loc) => loc.lat === lat && loc.lon === lon,
+    (loc) =>
+      String(loc.lat).split(".")[0] === String(lat).split(".")[0] &&
+      String(loc.lon).split(".")[0] === String(lon).split(".")[0],
   );
 
   const reOrder = (fromIndex, toIndex, arr) => {
@@ -25,7 +27,6 @@ function WeatherCart({
     const [clicked] = newArr.splice(fromIndex, 1);
     newArr.splice(toIndex, 0, clicked);
     setLocations(newArr);
-
   };
 
   console.log(locations);

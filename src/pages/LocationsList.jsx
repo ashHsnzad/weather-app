@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import axios from "axios";
 import WrapperLocationsList from "../styles/LocationsList";
 import { useAppContext } from "../AppContext";
+import { nanoid } from "nanoid";
 const queryUrl = `http://api.weatherapi.com/v1/search.json?key=${import.meta.env.VITE_WEATHERAPI_KEY}`;
 function LocationsList() {
   const { locations, setLocations } = useAppContext();
@@ -18,13 +19,11 @@ function LocationsList() {
       return results.data;
     },
   });
+  console.log(data);
 
-  const handleClick = (coordinate) => setLocations((prev) => [coordinate, ...prev]);
-  //   {
-  //   if (!locations.some((element) => element === coordinate)) {
-  //     setLocations((prev) => [...prev, coordinate]);
-  //   }
-  // };
+  const handleClick = (locationData) =>
+    setLocations((prev) => [locationData, ...prev]);
+
   return (
     <WrapperLocationsList>
       <div className="content">
@@ -37,11 +36,22 @@ function LocationsList() {
         <article>
           {data?.map((location) => {
             const { name, region, country, id, lat, lon } = location;
+            console.log(id);
             return (
               <Link
                 key={id}
                 to={`/${country}/${name}/${lat}/${lon}`}
-                onClick={() => handleClick({ lat: lat, lon: lon })}
+                onClick={() =>
+                  handleClick({
+                    lat: lat,
+                    lon: lon,
+                    city: name,
+                    region: region,
+                    country: country,
+                    id: nanoid(),
+                    
+                  })
+                }
               >
                 <div>
                   <h5>{name}</h5>

@@ -9,7 +9,13 @@ export const AppContext = createContext();
 export const AppContextProvider = (props) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentData, setCurrentData] = useState(null);
-  const [ipData, setIpData] = useState([])
+  const [ipData, setIpData] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("ip")) ?? [];
+    } catch (error) {
+      return [];
+    }
+  });
 
   console.log(currentData);
   const [locations, setLocations] = useState(() => {
@@ -29,15 +35,36 @@ export const AppContextProvider = (props) => {
     },
   });
 
+  useEffect(() => {
+    if (data) {
+      setIpData(data);
+    }
+  }, [data?.ip]);
+
+  useEffect(() => {
+    localStorage.setItem("ip", JSON.stringify(data));
+  }, [data?.ip]);
+
+  console.log(ipData);
+
   // grabbing the ip when it changes and for the first time
   useEffect(() => {
     if (
       data &&
-      !locations.some(({ lat, lon }) => lat === data.lat && lon === data.lon)
+      !locations.some(
+        ({ city, region }) => city === data.city && region === data.region,
+      )
     ) {
-      setLocations((prev) => [...prev, { lat: data.lat, lon: data.lon }]);
-      setIpData(data)
-
+      setLocations((prev) => [
+        ...prev,
+        {
+          lat: data.lat,
+          lon: data.lon,
+          city: data.city,
+          region: data.region,
+          country: data.country_name,
+        },
+      ]);
     }
   }, [data?.region]);
 
@@ -68,7 +95,7 @@ export const AppContextProvider = (props) => {
         currentData,
         setCurrentData,
         ipData,
-        setIpData
+        setIpData,
       }}
     >
       {props.children}

@@ -1,4 +1,4 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import axios from "axios";
 const queryUrl = `http://api.weatherapi.com/v1/search.json?key=${import.meta.env.VITE_WEATHERAPI_KEY}`;
@@ -30,9 +30,9 @@ function SearchQueryHook() {
   }, [searchQuery]);
 
   if (queryIsError) {
-    axios.isAxiosError(error)
-      ? console.log(error?.response?.data?.error?.message)
-      : console.log(error);
+    axios.isAxiosError(queryError)
+      ? console.log(queryError?.response?.data?.error?.message)
+      : console.log(queryError);
   }
 
   const queryErrorMessage =
